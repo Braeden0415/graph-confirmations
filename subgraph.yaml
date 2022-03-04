@@ -1,0 +1,24 @@
+specVersion: 0.0.4
+description: SubGraph VitalPoint # the name of the subgraph
+repository: https://github.com/Braeden0415/vitalpointai-subgraph-test.git # repo where subgraph project is stored
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: near
+    name: receipts # could also be blocks
+    network: near-testnet # can choose near-mainnet or near-testnet
+    source:
+      account: funding.vitalpointai.testnet # contract account you want to pull data from
+      startBlock: 81319681 # starting block on near-mainnet for indexing
+    mapping:
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      file: ./src/mapping.ts
+      entities:
+        - Account # the example entity in the schema.graphql file
+        - Log # example log entity in the schema.graphql file
+        - SetContractToFund 
+        - Init
+        - TransferAdmin
+      receiptHandlers:
+        - handler: handleReceipt # name of the receipt handler
